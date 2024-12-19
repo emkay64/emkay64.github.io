@@ -35,6 +35,7 @@ Project->Build Customisation-> masm(.targets, .props) = check box Y
 	error reporting = do not send
 
 3. create syscall.asm (Get your syscall numbers and target to system)
+
 ```assembly
 PUBLIC AlloeVirtMem
 PUBLIC WriVirMem
