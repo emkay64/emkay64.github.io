@@ -36,7 +36,7 @@ Project->Build Customisation-> masm(.targets, .props) = check box Y
 
 3. create syscall.asm (Get your syscall numbers and target to system)
 
-```assembly
+{% highlight assembly %}
 PUBLIC AlloeVirtMem
 PUBLIC WriVirMem
 PUBLIC ProtVirtMem
@@ -87,10 +87,10 @@ WaiSinObj ENDP
 
 _TEXT ENDS
 END
-```
+{% endhighlight %}
 
 ## syscall.c
-```c
+{% highlight c %}
 /*
 Micro Manual MASM based Self Thread Shellcode Injection Using Syscalls
 Date	:	29/10/2021
@@ -126,10 +126,10 @@ void ThisIsNotAnEntryPoint(void)
 	DbgPrint("END");
 }
 
-```
+{% endhighlight %}
 
 ## syscall.h
-```c
+{% highlight c %}
 #pragma once
 #define WIN32_LEAN_AND_MEAN
 #pragma check_stack(off)
@@ -189,7 +189,7 @@ void* my_memmove(void* dest, const void* src, unsigned int n)
 	}
 	return dest;
 }
-```
+{% endhighlight %}
 
 Now due to verbosity of the build, we can see what happens during the build. I dont really understand why some compiler flags clash but thats the MSVC compiler for you.
 

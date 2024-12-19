@@ -13,7 +13,7 @@ Win32 & CRT-less binary intended to early load by e.g. ELAM/KMDF driver using KA
 ## RIP/return address & __ReturnAddress() intrinsic
 To obtain the target address to search for, the MSVC compiler intrinsic __ReturnAddress() can be used within each hooking function. Take the example below, the entry function calls the returnval function which utilizes this intrinsic and prints the address which a RET instruction will return to. In this case pointing back within the main function, The instruction after the function call to be specific. This logic will be valuable in a later section.
 
-```c
+{% highlight c %}
 #include <stdio.h>
 #include <intrin.h>
 #pragma intrinsic(_ReturnAddress)
@@ -29,7 +29,7 @@ void main(void)
 	returnval(); /* the function call */
 	/* <- here is where the program will logically return to after executing the function returnval() */
 }
-```
+{% endhighlight %}
 
 
 ## Hooking Win32 from a NTAPI dependant dll?
@@ -39,7 +39,7 @@ This can be carried out in a similar way to the LoadLibrary + GetProcAddress met
 
 The method that was discovered was using the Ldr functions exported by NTDLL.DLL to copy the functionality of LoadLibrary + GetProcAddress. LdrLoadDll and LdrGetProcedureAddress were utilized with the function prototypes provided by process hackers NT headers.
 
-```c
+{% highlight c %}
 RtlInitUnicodeString(&ModuleNameString_U, L"kernelbase");
 Status = LdrLoadDll(UNICODE_NULL, NULL, &ModuleNameString_U, &ModuleHandle);
 
@@ -60,10 +60,10 @@ typedef LPVOID(NTAPI * fnVirtualAlloc)(
 );
 	
 OrigVirtualAlloc = (fnVirtualAlloc)VirtualAllocPointer;
-```
+{% endhighlight %}
 
 This could be used as follows:
-```c
+{% highlight c %}
 #define WIN32_LEAN_AND_MEAN
 #include <cstdio>
 #include <Windows.h>
@@ -76,7 +76,7 @@ void main(void) {
 	FreeLibrary(SampleHookDllModule);
 	printf("%-20s : 0x%-016p\n\nDONE\n", "Unhook:", (void*)VirtualAlloc);
 }
-```
+{% endhighlight %}
 
 
 ## What module called
@@ -84,7 +84,7 @@ Now that Win32 and NTAPI functions can be hooked, the calling module can be isol
 
 The PEB can be programmatically accessed using the readgsqword MSVC compiler intrinsic (Microsoft 2022a) with 0x60 (96 bytes) as the offset to read the PEB for x86-64 bit processes.
 
-```c
+{% highlight c %}
 /* PEB structure */
 typedef struct _PEB {
 	BYTE Reserved1[2];
@@ -126,9 +126,9 @@ typedef struct _LDR_DATA_TABLE_ENTRY {
 	};
 	ULONG TimeDateStamp;
 } LDR_DATA_TABLE_ENTRY, *PLDR_DATA_TABLE_ENTRY;
-```
+{% endhighlight %}
 
-```c
+{% highlight c %}
 #include <stdio.h>
 #include <Windows.h>
 #include <winternl.h>
@@ -160,7 +160,7 @@ void main(void)
 		(void*)((ULONGLONG)ldr_entry->DllBase+(ULONGLONG)ldr_entry->SizeOfImage));
 	}
 }
-```
+{% endhighlight %}
 
 
 ## What function called
@@ -168,7 +168,7 @@ The plaintext function name will not be in a Release version of a compiled PE wi
 
 The BeginAddress from the RUNTIME FUNCTION structure is the target function entry address. This will be used as the target function in the next stage to search the EXPORT DIRECTORY of the PE.
 
-```c
+{% highlight c %}
 typedef struct _IMAGE_RUNTIME_FUNCTION_ENTRY {
 	DWORD BeginAddress; /* Interested in this */
 	DWORD EndAddress;
@@ -179,10 +179,10 @@ typedef struct _IMAGE_RUNTIME_FUNCTION_ENTRY {
 } _IMAGE_RUNTIME_FUNCTION_ENTRY, *_PIMAGE_RUNTIME_FUNCTION_ENTRY;
 
 typedef struct _IMAGE_RUNTIME_FUNCTION_ENTRY RUNTIME_FUNCTION, *PRUNTIME_FUNCTION;
-```
+{% endhighlight %}
 
 To obtain a RUNTIME FUNCTION function for a chosen RIP, the NTDLL.DLL exported function RtlLookupFunctionEntry() can be used.
-```c
+{% highlight c %}
 EXTERN_C NTSYSAPI PRUNTIME_FUNCTION NTAPI RtlLookupFunctionEntry(
 /* [in] */ DWORD64 ControlPc,
 /* [out] */ PDWORD64 ImageBase,
@@ -190,12 +190,12 @@ EXTERN_C NTSYSAPI PRUNTIME_FUNCTION NTAPI RtlLookupFunctionEntry(
 );
 [...SNIP...]
 runfunc = RtlLookupFunctionEntry(ullRetAddr, &imgbase, &HistTable);
-```
+{% endhighlight %}
 
 Now the function BeginAddress can be used to search the PE for an Exported function name. The PE structure features a Directory called the EXPORT DIRECTORY (wireless90 2021) which contains information about the exported functions. For example, CFF Explorer (NTCore 2018) can be used to view the PE structure in depth. The Export directory is the first entry in the Data Directory section at index [0]. Holding an ordinal if set, the function RVA, the name Ordinal, the Name RVA and the Name.
 
 The function name can be obtained by iterating over the entries in the Export Directory until the address matches. This is carried out via standard PE parsing using the Known and publicly documented PE file structure and structures available. It’s questionable whether creating a sorted vector of these structures to save having to parse the PE headers each time, however this is room for future experimentation. The snippet below is a cut down hybrid of a couple of scripts, sektor7 and arbiter34.
-```c
+{% highlight c %}
 [...SNIP...]
 if ((PIMAGE_DOS_HEADER)imgbase)->e_magic == IMAGE_DOS_SIGNATURE)
 {
@@ -221,7 +221,7 @@ if ((PIMAGE_DOS_HEADER)imgbase)->e_magic == IMAGE_DOS_SIGNATURE)
 [...SNIP...]
 }
 [...SNIP...]
-```
+{% endhighlight %}
 
 NOTE: One limitation of this approach is the function to be searched for needs to be exported by the DLL being searched and if it’s not it’s likely a private function or pointing back into the host executable.
 
@@ -256,8 +256,7 @@ The complete functionality of a Call to a hooked function can be described below
 
 To discuss and dissect results the sample source below, malproc64.c, calls VirtualAlloc, VirtualAllocEx, VirtualAllocExNuma, RtlMoveMemory, VirtualProtect, CreateThread. All the Win32 API’s and NTAPI counterparts in use are hooked apart from RtlMoveMemory. The DLL is force-loaded via LoadLibrary to simulate the injection at process creation.
 
-```c
-
+{% highlight c %}
 #include <Windows.h>
 #include <stdio.h>
 //#pragma comment(lib, "kernel32.lib") /* uncomment to catch kernel32.dll:CreateThread() */
@@ -289,7 +288,7 @@ void main(void)
 	HANDLE th = CreateThread(0, 0, (LPTHREAD_START_ROUTINE)exec_mem, 0, 0, 0);
 	WaitForSingleObject(th, -1);
 }
-```
+{% endhighlight %}
 
 
 The log file created contains a line for each hook hit in the format of:
@@ -340,7 +339,7 @@ Its not nice on the eyes and was the source for some confusion, but thats the le
 
 ## Bypassing detection
 
-```assembly
+{% highlight assembly %}
 ; NOTE , WINDOWS 10 21H1 SYSCALL STUBS TAKEN FROM IDA DISASSEMBLY OF NTDLL.DLL
 ; FUNCTIONS ARE FORCE MADE PUBLIC IN THE MASM COMPILER OPTIONS
 
@@ -377,10 +376,10 @@ CreThreE PROC
 CreThreE ENDP
 _TEXT ENDS
 END
-```
+{% endhighlight %}
 
 
-```c
+{% highlight c %}
 #include "syscall.h"
 void ThisIsNotAnEntryPoint(void)
 {
@@ -410,7 +409,7 @@ void ThisIsNotAnEntryPoint(void)
 	//WaitForSingleObject(th, -1); 	// to actually wait infinitely we need to link with kernel32, 
 									// or be bothered to use ntapi equiv
 }
-```
+{% endhighlight %}
 
 As this PE is not importing functions from ntdll which will be hooked by the introspection DLL within the process, the PE using these syscall stubs will go unnoticed however a log file for the process will be created.
 
@@ -436,7 +435,7 @@ By the end of the project the DLL was successfully developed alongside a range o
 ## Revisions
 The c code that was written is not safe by any means, warning messages and memory safety were not taken into account during the lifecycle of programming due to inexperience. A couple of rounds of Refactoring and code review will enable the application to be safer and made more efficient in terms of operation and codebase size. Using Nt NTAPI functions for file creation and management was difficult due to the lack of official documentation and inexperience but it was made to work through attaching a debugger and trial and error. 
 
-```c
+{% highlight c %}
 [...SNIP...]
 /* CreateLogFile function which grabs PID and exe name and creates a log file in the
 format
@@ -479,10 +478,10 @@ void CreateLogFile(void)
 	/* close handle so that other write operations are possible */
 	NtClose(LogFileHandle);
 }
-```
+{% endhighlight %}
 
 To open a file and append a line to said file was not an easy task using NTAPI functions, once again it was a case of attaching a debugger and stepping through until NTSTATUS values returned 0x00000000.
-```c
+{% highlight c %}
 /*[...SNIP...]*/
 /* AppendLogFile function which takes a pointer to an array of chars and a length of
 chars to read from char array
@@ -529,7 +528,7 @@ NtWriteFileStatus = NtWriteFile(
 /* SNIP */
 NtClose(FileHand);
 /*[...SNIP...]*/
-```
+{% endhighlight %}
 
 
 ## Future Developments/Research
