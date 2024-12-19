@@ -1,5 +1,5 @@
-title: "Blog Title"
-author: "Blog Author"
+title: "Bemkay64's Blog"
+author: "emkay64"
 description: "Made with <b style=\"color: #f45;\">&lt;3</b>"
 permalink: /:title/
 lang: "en"
@@ -21,7 +21,7 @@ navigation:                # accepts {file, title, url, icon, sidebaricon}
 
 external:                  # shows a footer with social links - for available icons see fontawesome.com/icons
   - {title: Mail, icon: envelope, url: "mailto:niklasbuschmann@users.noreply.github.com"}
-  - {title: Github, icon: github, url: "https://github.com/niklasbuschmann/contrast"}
+  - {title: Github, icon: github, url: "https://github.com/emkay64"}
   - {title: Subscribe, icon: rss, url: "/feed.xml"}
 
 comments:
