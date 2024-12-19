@@ -229,6 +229,7 @@ NOTE: One limitation of this approach is the function to be searched for needs t
 ## Putting the pieces together
 The complete functionality of a Call to a hooked function can be described below. After The DLL has been injected into malproc64.exe and Hooks have been applied.
 
+```
 1. VirtualAlloc gets called by malproc64.exe
 	(a) Hook function HookVirtualAlloc gets hit
 	(b) ReturnAddress() within the hook function is compared to each PE’s in InMemoryOrderModuleList from the PEB,
@@ -250,7 +251,7 @@ The complete functionality of a Call to a hooked function can be described below
 		(e) HOOKHIT:NTAPI:HookNtAllocateVirtualMemory, 
 			(caller module:KERNELBASE.dll:VirtualAlloc),
 			(func:0x00007FFBF4D718E8)
-
+```
 
 
 To discuss and dissect results the sample source below, malproc64.c, calls VirtualAlloc, VirtualAllocEx, VirtualAllocExNuma, RtlMoveMemory, VirtualProtect, CreateThread. All the Win32 API’s and NTAPI counterparts in use are hooked apart from RtlMoveMemory. The DLL is force-loaded via LoadLibrary to simulate the injection at process creation.
