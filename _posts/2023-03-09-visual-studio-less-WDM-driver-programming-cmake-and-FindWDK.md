@@ -1,5 +1,5 @@
 ---
-title:  visual studio-less WDM driver programming - cmake and FindWDK
+title:  Visual Studio-less WDM Windows Driver Programming - cmake and FindWDK
 layout: post
 categories: Windows
 ---
