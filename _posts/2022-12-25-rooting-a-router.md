@@ -83,10 +83,11 @@ RX <-> TXD
 ground <-> ground
 ```
 
+
 ## Nada
 Upon SSHing into the rpi, using the following command had no output.
 ```
-picocom -b 115200 /dev/AMA0
+p4@raspberrypi:~ $ picocom -b 115200 /dev/AMA0
 ```
 Thought that was a bit Weird as something should output even if I have the BAUD rate wrong...
 The next morning I asked some people and turns out on new the newer raspberry Pis that serial needs to be enabled
@@ -96,12 +97,13 @@ sudo raspi-config
 -> Interfacing options -> Serial -> No to login shell to be accessible over Serial -> Yes to Serial port hardware being enabled (Raspberry pi UART communication[1])
 
 
-## [0.4] Password....
+## Password....
 
 Upon seeing the scrolling output from a successful UART I got excited, after about 30s of booting I was prompted with a login....
 ```
 RT-AC1200G+ login:
 ```
+
 I didn't know the password. Doing some google fu I found a russian blog reviewing this exact router.
 (ASUS rt ac1200 review[2])
 ```
@@ -111,6 +113,7 @@ I didn't know the password. Doing some google fu I found a russian blog reviewin
 Linux 2.6.36.4 с использованием BusyBox 1.17.4.
 """
 ```
+
 Huh, interesting okay, at least we know its not protected with a device specific generated password or something hard to bruteforce
 ```
 """
@@ -119,6 +122,7 @@ The firmware of the tested model is based on the operating system
 Linux 2.6.36.4 using BusyBox 1.17.4.
 """
 ```
+
 
 ## Reset -> Admin
 
@@ -314,6 +318,7 @@ GCC: (GNU) 3.3.2 20031005 (Debian prerelease)
 GCC: (Buildroot 2012.02) 4.5.3
 ```
 
+
 ## Dumb Open redirect CVE-2022-48127 
 
 While reviewing the web source code i noticed a very dumb open redirect issue on password reset. 
@@ -327,7 +332,7 @@ Main_Password.asp
 ```
 
 Simply set the location.href to be the nextPage GET param content.
-```
+```js
 function submitForm()
 {
     if(validForm())
@@ -353,7 +358,7 @@ function submitForm()
 ```
 
 the asp.net results in:
-```
+```js
 var nextPage = decodeURIComponent('https://google.com');
 location.href = (nextPage != "") ? nextPage : "<% rel_index_page(); %>";
 ```
@@ -539,7 +544,7 @@ GCC: (Buildroot 2012.02) 4.5.3
 Part 2, enumeration, exfil and analysis....
 
 
-## [0.9] References / Resources
+## References / Resources
 - [0] https://cdn.sparkfun.com/assets/learn_tutorials/1/5/9/5/GPIO.png
 - [1] https://www.electronicwings.com/raspberry-pi/raspberry-pi-uart-communication-using-python-and-c
 - [2] https://www.foxnetwork.ru/index.php/36-reviews/reviews/221-asus-rt-ac1200g 
