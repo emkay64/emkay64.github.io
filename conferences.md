@@ -1,8 +1,8 @@
 ---
+title: "Conferences"
+permalink: "/conferences/"
 layout: page
-permalink: /conferences/
 ---
-
 
 
 
