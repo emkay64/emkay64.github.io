@@ -4,7 +4,7 @@ layout: post
 categories: Windows
 ---
 
-Stripping Win32/CRT dependencies from windows PEs. 
+Stripping Win32 and CRT dependencies from windows PEs to solely depend on NTDLL.dll. 
 
 
 ## Tooling
