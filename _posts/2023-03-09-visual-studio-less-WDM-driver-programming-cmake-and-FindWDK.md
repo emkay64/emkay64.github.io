@@ -9,7 +9,7 @@ Visual Studio can be bloat, cmake and FindWDK allows for easy WDM driver compila
 
 
 ## Setup initial project directory
-```
+```bat
 mkdir example_driver_root & cd example_driver_root & git clone https://github.com/SergiusTheBest/FindWDK.git & mkdir example_driver
 ```
 
