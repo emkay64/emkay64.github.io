@@ -30,5 +30,5 @@ layout: page
 | Dupe | macOS Application | Zscaler | Zscaler Client Connector Installer Local Privilege Escalation |
 | Dupe | macOS Application | Zscaler | Zscaler Client Connector Installer Local Privilege Escalation |
 | TBD | TBD | IBM | IBM Product |
-| TBD | TBD | VMware | VMware Product |
+| [CVE-2024-11468](https://nvd.nist.gov/vuln/detail/CVE-2024-11468) | macOS | VMware | VMware Product |
 | TBD | TBD | Palo Alto | Palo Alto Product |
