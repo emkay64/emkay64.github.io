@@ -7,8 +7,8 @@ layout: page
 
 **My Public CVEs and Acknowledgements**
 
-| Vulnerability ID | Platforms        | Vendors         | Title           | Disclosed Time  |
-|------------------|------------------|-----------------|-----------------|-----------------|
+| Vulnerability ID | Platforms        | Vendors         | Title           |
+|------------------|------------------|-----------------|-----------------|
 | [CVE-2022-48127](https://nvd.nist.gov/vuln/detail/CVE-2022-48127) | Web Application | Asus | RT-ACG1200G+ Router Webserver Open Redirect |
 | [CVE-2024-23480](https://nvd.nist.gov/vuln/detail/CVE-2024-23480) <br> [CVE-2024-23482](https://nvd.nist.gov/vuln/detail/CVE-2024-23482) <br> [CVE-2024-23483](https://nvd.nist.gov/vuln/detail/CVE-2024-23483) <br> [CVE-2024-31127](https://nvd.nist.gov/vuln/detail/CVE-2024-31127) | macOS Application | Zscaler | Zscaler Client Connector NSXPC Local Privilege Escalation |
 | [CVE-2024-27357](https://nvd.nist.gov/vuln/detail/CVE-2024-27357) | macOS Application | WithSecure | Elements Installer Local Privilege Escalation |
