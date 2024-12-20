@@ -1,9 +1,11 @@
 ---
+title: "CVEs"
+permalink: "/cvelist/"
 layout: page
-permalink: /cvelist/
 ---
 
-**Public CVEs and Acknowledgements (Credit to me)**
+
+**My Public CVEs and Acknowledgements**
 
 |                       Vulnerability ID                       | Platforms                                                    | Vendors     | Classification                | Disclosed Time | Comments                                                     |
 | :----------------------------------------------------------: | ------------------------------------------------------------ | ----------- | ----------------------------- | -------------- | ------------------------------------------------------------ |
