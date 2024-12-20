@@ -3,7 +3,7 @@ title:  "A Method for Obtaining Caller Module and Function Names for Win32 and N
 layout: post
 ---
 
-NOTE: This was research that was done for a University BSc Cyber Security and Digital Forensics dissertation, this project was chosen as a challenge as my Windows OS knowledge at the time was weak. Didn't know more than how to write a hello world in c. Its very crudely copy pasted from my paper and with the knowledge obtained since could be improved on. Its interesting to see how things change with time. 
+This was research that was done for a University BSc Cyber Security and Digital Forensics dissertation, this project was chosen as a challenge as my Windows OS knowledge at the time was weak. Didn't know more than how to write a hello world in c. Its very crudely copy pasted from my paper and with the knowledge obtained since could be improved on. Its interesting to see how things change with time. 
 
 
 ## Scenario
