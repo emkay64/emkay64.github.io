@@ -1,7 +1,9 @@
 ---
+title: "More Blogs"
+permalink: "/blogs/"
 layout: page
-permalink: /blogs/
 ---
+
 
 **My Blogs through WithSecure Labs:**
 
