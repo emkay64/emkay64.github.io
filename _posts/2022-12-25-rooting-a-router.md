@@ -3,11 +3,10 @@ title:  CVE-2022-48127 -- Finding an Open Redirect and Some General Router Tomfo
 layout: post
 ---
 
+Had a ASUS RT-AC1200G+ router that was doing nothing, had been watching [Flashback team](https://www.youtube.com/@FlashbackTeam/videos) videos on youtube and was feeling a bit bored. Popped the router open and saw 4 pins in a row. "Thats UART", wondered what architecture and webserver the system was running so I poked at it one weekend.
 
-Had a ASUS RT-AC1200G+ router that was doing nothing, had been watching Flashback team (https://www.youtube.com/@FlashbackTeam/videos) videos on youtube and was feeling a bit bored. Popped the router open and saw 4 pins in a row. "Thats UART", wondered what architecture and webserver the system was running so I poked at it one weekend.
 
-
-## [Detecting 3.3v, Ground, TX and RX pins.
+## Detecting 3.3v, Ground, TX and RX pins.
 - Ground is ground, plug the device in and use a multimeter in continuity mode. If it beeps when one probe is touching metal housing and the other is on a pin, you know you have a ground pin.
 - 3.3v power pin, rinse and repeat the same as ground but the power on and your multimeter set to 0.00 DC detection.
 - To detect TX, a pin which has a changing voltage needs to be found (e.g. in my case 3.2v/3.3v DC changing in patterns).
