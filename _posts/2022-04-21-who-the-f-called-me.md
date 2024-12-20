@@ -1,5 +1,5 @@
 ---
-title:  "A Method for Obtaining Caller Module and Function Names for Win32 and NTAPI functions - Who the F Called Me?"
+title:  "Who the F Called Me?: Trampoline Hook Caller Function Metadata Acquisition"
 layout: post
 ---
 
