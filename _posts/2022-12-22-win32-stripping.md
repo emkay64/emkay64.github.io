@@ -1,11 +1,10 @@
 ---
-title:  Creating tiny 3.50 KB windows shellcode loaders "Its not about the size but how you use it - syscalled"
+title:  Cleaning CRT and Win32 Dependencies From Your MSVC Compiled Binary
 layout: post
 categories: Windows
 ---
 
 Stripping Win32/CRT dependencies from windows PEs. 
-
 
 
 ## Tooling
