@@ -13,24 +13,24 @@ It was possible to achieve local privilege escalation (LPE) through the followin
 
 
 
-## Root cause analysis
-### 1. Anatomy of the ZscalerService LaunchDaemon
+## Anatomy of the ZscalerService LaunchDaemon
 
-The `shouldAcceptNewConnection` listener routine within the `ZscalerService` LaunchDaemon checks the incoming connection's `auditToken` whether the `TeamIdentifier` is (`PCBCQZJ7S7`) using the `PlatformUtils::validateTeamSignature` function , if the process doesn't have an `auditToken` it checks the pid for the `TeamIdentifier` (`PCBCQZJ7S7`) using the `PlatformUtils::validateTeamSignature` function. (!!There is a possible PID reuse exploit here that I need to investigate some more!!). 
+The `shouldAcceptNewConnection` listener routine within the `ZscalerService` LaunchDaemon checks the incoming connection's `auditToken` whether the `TeamIdentifier` is (`PCBCQZJ7S7`) using the `PlatformUtils::validateTeamSignature` function , if the process doesn't have an `auditToken` it checks the pid for the `TeamIdentifier` (`PCBCQZJ7S7`) using the `PlatformUtils::validateTeamSignature` function. 
 
 Once the `TeamIdentifier` has been verified to be Zscaler's `TeamIdentifier` of `PCBCQZJ7S7`, it then checks the `BundleIdentifier` and depending on the `BundleIdentifier`'s value it provides different protocol methods. 
 
 For example, the following `BundleIdentifier`s result in the following remote object interface (`setRemoteObjectInterface`) and exported interface (`setExportedInterface`) protocols:
-- com.zscaler.zscaler - TrayXPCProtocol + XPCProtocol
-- com.zscaler.tunnel - TunnelXPCProtocol + XPCProtocol
-- com.zscaler.zscaler.pktfilter - FilterXPCProtocol + XPCProtocol
+- `com.zscaler.zscaler` - `TrayXPCProtocol` + `XPCProtocol`
+- `com.zscaler.tunnel` - `TunnelXPCProtocol` + `XPCProtocol`
+- `com.zscaler.zscaler.pktfilter` - `FilterXPCProtocol` + `XPCProtocol`
 
 It then checks whether the Mach service name is `com.zscaler.service-tray-communication`, if it is, it checks the incoming processes `BundleIdentifier` again and sets up remote connectors if required. 
-- com.zscaler.zscaler - trayRemoteConnector or setTrayRemoteConnector
-- com.zscaler.tunnel - tunnelRemoteConnector or setTunnelRemoteConnector
-- com.zscaler.zscaler.pktfilter - pktFilterRemoteConnector or setPktFilterRemoteConnector
+- `com.zscaler.zscaler` - `trayRemoteConnector` or `setTrayRemoteConnector`
+- `com.zscaler.tunnel` - `tunnelRemoteConnector` or `setTunnelRemoteConnector`
+- `com.zscaler.zscaler.pktfilter` - `pktFilterRemoteConnector` or `setPktFilterRemoteConnector`
 
-### 2. Hardened runtime bypass
+
+## Hardened runtime bypass
 The `/Applications/Zscaler/Zscaler.app/Contents/PlugIns/ZscalerTunnel` Mach-O executable had the `com.apple.security.cs.allow-dyld-environment-variables` and `com.apple.security.cs.disable-library-validation` enitlements which facilitated a trivial dylib injection through the `DYLD_INSERT_LIBRARIES` environment variable.
 ```xml
 07:41:36-testmac@mpro:~/Desktop/installRevertZCC/clean_exploit$ codesign -dv --entitlements :- /Applications/Zscaler/Zscaler.app/Contents/PlugIns/ZscalerTunnel
@@ -71,15 +71,17 @@ Alternatively it was also possible to obtain code injection through abuse of the
 [...REDACTED FOR BREVITY...]
 ```
 
-### 3. Abusable NSXPC Protocol
+
+## Abusable NSXPC Protocol
 Within the `XPCProtocol` protocol, the following method was abused. 
 
 ```objc
 - (void)installRevertZCC:(NSString *)arg1 reply:(void (^)(BOOL))arg2;
 ```
 
+
 #### installRevertZCC
-The installRevertZCC function could be identified through analysis of the `/Applications/Zscaler/Zscaler.app/Contents/PlugIns/ZscalerService` Mach-O NSXPC Daemon (`4.1.0.160`).
+The `installRevertZCC` function could be identified through analysis of the `/Applications/Zscaler/Zscaler.app/Contents/PlugIns/ZscalerService` Mach-O NSXPC Daemon (`4.1.0.160`).
 
 ```objc
 /* @class ZSService */
@@ -121,7 +123,7 @@ The installRevertZCC function could be identified through analysis of the `/Appl
 ```
 
 
-### installZCC
+## installZCC
 The `installZCC` function is called by the `installRevertZCC` function and checks for the presence of further Mach-O binaries and then sets up the commandline arguments. 
 
 ```objc
@@ -198,7 +200,7 @@ loc_10006bac2:
 ```
 
 
-### BundleUtils::runCommandToShell
+## BundleUtils::runCommandToShell
 The `BundleUtils::runCommandToShell` function is called and has the commandline the caller wishes to be executed as root. 
 
 ```objc
@@ -272,7 +274,6 @@ INF installZCC::zapp updater command: /bin/sh /tmp/Contents/MacOS/installbuilder
 
 
 ## Local Privilege Escalation Exploit
-
 The following setup can be used to carry out the exploitation steps automatically. 
 ```bash
 #!/bin/bash
@@ -379,6 +380,7 @@ static void customConstructor(int argc, const char **argv) {
     [[NSApplication sharedApplication] terminate:nil];
 }
 ```
+
 
 ## Resultant output
 ```bash
