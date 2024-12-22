@@ -32,7 +32,7 @@ It then checks whether the Mach service name is `com.zscaler.service-tray-commun
 
 ### 2. Hardened runtime bypass
 The `/Applications/Zscaler/Zscaler.app/Contents/PlugIns/ZscalerTunnel` Mach-O executable had the `com.apple.security.cs.allow-dyld-environment-variables` and `com.apple.security.cs.disable-library-validation` enitlements which facilitated a trivial dylib injection through the `DYLD_INSERT_LIBRARIES` environment variable.
-```
+```xml
 07:41:36-testmac@mpro:~/Desktop/installRevertZCC/clean_exploit$ codesign -dv --entitlements :- /Applications/Zscaler/Zscaler.app/Contents/PlugIns/ZscalerTunnel
 Executable=/Applications/Zscaler/Zscaler.app/Contents/PlugIns/ZscalerTunnel
 Identifier=com.zscaler.tunnel
@@ -63,7 +63,7 @@ Warning: Specifying ':' in the path is deprecated and will not work in a future 
 ```
 
 Alternatively it was also possible to obtain code injection through abuse of the `@loader_path` dyld variable. This combined with the `com.apple.security.cs.disable-library-validation` entitlement facilitates arbitrary dylib loading through renaming a malicious dylib to be `libpacparser.1.dylib` and placing it in the same directory as the `ZscalerTunnel` MachO.
-```
+```bash
 07:33:21-testmac@mpro:~/Desktop/installRevertZCC/clean_exploit$ otool -L /Applications/Zscaler/Zscaler.app/Contents/PlugIns/ZscalerTunnel
 /Applications/Zscaler/Zscaler.app/Contents/PlugIns/ZscalerTunnel:
 [...REDACTED FOR BREVITY...]
@@ -81,7 +81,7 @@ Within the `XPCProtocol` protocol, the following method was abused.
 #### installRevertZCC
 The installRevertZCC function could be identified through analysis of the `/Applications/Zscaler/Zscaler.app/Contents/PlugIns/ZscalerService` Mach-O NSXPC Daemon (`4.1.0.160`).
 
-```c
+```objc
 /* @class ZSService */
 -(int)installRevertZCC:(int)arg2 reply:(int)arg3 {
     r15 = arg0;
@@ -124,7 +124,7 @@ The installRevertZCC function could be identified through analysis of the `/Appl
 ### installZCC
 The `installZCC` function is called by the `installRevertZCC` function and checks for the presence of further MachO binaries and then sets up the commandline arguments. 
 
-```c
+```objc
 /* @class ZSService */
 -(int)installZCC:(int)arg2, ... {
     r9 = arg5;
@@ -260,7 +260,7 @@ By calling the `installRevertZCC` method with a path which an attacker could cre
 ```
 
 The logs written to the `ZSAService*.log` files within the `/Library/Application Support/Zscaler` directory validated the hypothesis and LPE could be achieved. 
-```
+```bash
 08:04:29-testmac@mpro:/Library/Application Support/Zscaler$ cat ZSAService*.log | rg -i --hidden install
 [...REDACTED FOR BREVITY..]
 INF install**RevertZCC:: path=/tmp
@@ -269,6 +269,7 @@ INF installZCC::installZCC: osx-arm64 doesn't exist.
 INF installZCC::zapp updater command: /bin/sh /tmp/Contents/MacOS/installbuilder.sh  --revertzcc 1 --mode unattended --unattendedmodeui none --zinstallMode 1
 [...REDACTED FOR BREVITY..]
 ```
+
 
 ## Local Privilege Escalation Exploit
 
