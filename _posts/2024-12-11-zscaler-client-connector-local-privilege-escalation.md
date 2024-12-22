@@ -62,7 +62,7 @@ Warning: Specifying ':' in the path is deprecated and will not work in a future 
 </plist>
 ```
 
-Alternatively it was also possible to obtain code injection through abuse of the `@loader_path` dyld variable. This combined with the `com.apple.security.cs.disable-library-validation` entitlement facilitates arbitrary dylib loading through renaming a malicious dylib to be `libpacparser.1.dylib` and placing it in the same directory as the `ZscalerTunnel` MachO.
+Alternatively it was also possible to obtain code injection through abuse of the `@loader_path` dyld variable. This combined with the `com.apple.security.cs.disable-library-validation` entitlement facilitates arbitrary dylib loading through renaming a malicious dylib to be `libpacparser.1.dylib` and placing it in the same directory as the `ZscalerTunnel` Mach-O.
 ```bash
 07:33:21-testmac@mpro:~/Desktop/installRevertZCC/clean_exploit$ otool -L /Applications/Zscaler/Zscaler.app/Contents/PlugIns/ZscalerTunnel
 /Applications/Zscaler/Zscaler.app/Contents/PlugIns/ZscalerTunnel:
@@ -122,7 +122,7 @@ The installRevertZCC function could be identified through analysis of the `/Appl
 
 
 ### installZCC
-The `installZCC` function is called by the `installRevertZCC` function and checks for the presence of further MachO binaries and then sets up the commandline arguments. 
+The `installZCC` function is called by the `installRevertZCC` function and checks for the presence of further Mach-O binaries and then sets up the commandline arguments. 
 
 ```objc
 /* @class ZSService */
