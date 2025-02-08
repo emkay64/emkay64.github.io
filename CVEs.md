@@ -29,7 +29,7 @@ layout: page
 | Bugcrowd | macOS Application | Front | TCC Bypass |
 | Dupe | macOS Application | Zscaler | Zscaler Client Connector Installer Local Privilege Escalation |
 | Dupe | macOS Application | Zscaler | Zscaler Client Connector Installer Local Privilege Escalation |
-| CVE-2024-55904 | Java Web Application | IBM | [IBM DevOps Deploy / IBM UrbanCode Deploy (UCD) is susceptible to command injection](https://www.ibm.com/support/pages/node/7182841) |
+| [CVE-2024-55904](https://www.cve.org/CVERecord?id=CVE-2024-55904) | Java Web Application | IBM | [IBM DevOps Deploy / IBM UrbanCode Deploy (UCD) is susceptible to command injection](https://www.ibm.com/support/pages/node/7182841) |
 | TBD | TBD | IBM | IBM Product |
 | [CVE-2024-11468](https://www.cve.org/CVERecord?id=CVE-2024-11468) | macOS | VMware | [Horizon Client for macOS Installer Local Privilege Escalation](https://static.omnissa.com/sites/default/files/OMSA-2024-0002.pdf) |
 | TBD | TBD | Palo Alto | Palo Alto Product |
