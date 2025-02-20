@@ -5,8 +5,8 @@ main:
   - title: "Conferences"
     url: /conferences/
   - title: "CVEs"
-    url: /cvelist/
-    
+    url: /cve-list/
+
   # - title: "Quick-Start Guide"
     # url: https://mmistakes.github.io/minimal-mistakes/docs/quick-start-guide/
   # - title: "About"

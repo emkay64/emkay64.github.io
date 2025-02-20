@@ -1,5 +1,8 @@
 ---
 title: "CVEs"
+permalink: "/cve-list/"
+layout: posts
+author_profile: true
 ---
 
 
