@@ -1,6 +1,7 @@
 ---
 title:  "NO-CVE wontfix: Windows Zscaler Client Connector 4.2.0.190 Log Export Denial of Service"
 categories: Windows
+classes: wide
 ---
 
 A directory junction could be created in place of a directory which the Zscaler Client Connector uses as part of the log file export process. This directory was under the control of a low-privileged user, effectively preventing a user from exporting logs from ZCC. This may hinder a ZCC user's ability to triage and investigate logs if required. 
