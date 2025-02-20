@@ -1,7 +1,14 @@
 # main links
 main:
-  - title: "Quick-Start Guide"
-    url: https://mmistakes.github.io/minimal-mistakes/docs/quick-start-guide/
+  - title: "More Blogs"
+    url: /blogs/
+  - title: "Conferences"
+    url: /conferences/
+  - title: "CVEs"
+    url: /cvelist/
+    
+  # - title: "Quick-Start Guide"
+    # url: https://mmistakes.github.io/minimal-mistakes/docs/quick-start-guide/
   # - title: "About"
   #   url: https://mmistakes.github.io/minimal-mistakes/about/
   # - title: "Sample Posts"
@@ -10,3 +17,11 @@ main:
   #   url: /collection-archive/
   # - title: "Sitemap"
   #   url: /sitemap/
+
+
+#   navigation:                # accepts {file, title, url, icon, sidebaricon}
+#   - {file: "index.html"}
+#   - {file: "conferences.md"}
+# # - {file: "blogs.md"}
+#   - {file: "CVEs.md"}
+#   - {file: "README.md"}
