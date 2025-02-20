@@ -1,8 +1,6 @@
 ---
 title: "More Blogs"
-permalink: "/blogs/"
 ---
-
 
 **My Blogs through WithSecure Labs:**
 

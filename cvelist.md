@@ -1,6 +1,5 @@
 ---
 title: "CVEs"
-permalink: "/cvelist/"
 ---
 
 

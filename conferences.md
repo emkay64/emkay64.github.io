@@ -1,6 +1,5 @@
 ---
 title: "Conferences"
-permalink: "/conferences/"
 ---
 
 
