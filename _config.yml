@@ -114,7 +114,7 @@ analytics:
 # Site Author
 author:
   name             : "emkay64"
-  avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
+  avatar           : "/assets/images/wafer.png" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
   bio              : "Computer things"
   location         : "Somewhere"
   email            : 
