@@ -1,6 +1,5 @@
 ---
 title:  "Who the F Called Me?: Trampoline Hook Caller Function Metadata Acquisition"
-layout: post
 categories: Windows
 ---
 

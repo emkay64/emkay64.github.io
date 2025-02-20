@@ -1,6 +1,5 @@
 ---
 title:  "NO-CVE wontfix: Windows Zscaler Client Connector 4.2.0.190 Log Export Denial of Service"
-layout: post
 categories: Windows
 ---
 

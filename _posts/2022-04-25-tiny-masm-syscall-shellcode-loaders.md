@@ -1,6 +1,5 @@
 ---
 title:  "Creating tiny 3.50 KB windows shellcode loaders, Its not about the size but how you use it: syscalled"
-layout: post
 categories: Windows
 ---
 

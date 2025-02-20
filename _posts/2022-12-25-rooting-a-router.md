@@ -1,6 +1,5 @@
 ---
 title:  "CVE-2022-48127: Finding an Open Redirect and Some General Router Tomfoolery, rooting an ASUS Router via UART"
-layout: post
 categories: iot
 ---
 

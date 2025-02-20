@@ -1,6 +1,5 @@
 ---
 title:  "CVE-2024-31127: Zscaler Client Connector 4.1.500.3 NSXPC Local Privilege escalation"
-layout: post
 categories: macOS
 ---
 

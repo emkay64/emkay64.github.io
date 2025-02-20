@@ -1,6 +1,5 @@
 ---
 title:  "Visual Studio-less WDM Windows Kernel Driver Programming: cmake and FindWDK"
-layout: post
 categories: Windows
 ---
 

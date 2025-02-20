@@ -1,6 +1,5 @@
 ---
 title:  Cleaning CRT and Win32 Dependencies From Your MSVC Compiled Binary
-layout: post
 categories: Windows
 ---
 

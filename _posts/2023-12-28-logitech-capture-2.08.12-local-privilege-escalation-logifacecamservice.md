@@ -1,6 +1,5 @@
 ---
 title:  "NO-CVE 0day: Logitech Logi Capture 2.08.12 macOS Local Privilege Escalation (LogiFacecamService)"
-layout: post
 categories: macOS
 ---
 
