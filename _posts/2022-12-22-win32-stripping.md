@@ -1,6 +1,7 @@
 ---
 title:  Cleaning CRT and Win32 Dependencies From Your MSVC Compiled Binary
 categories: Windows
+classes: wide
 ---
 
 Stripping Win32 and CRT dependencies from windows PEs to solely depend on NTDLL.dll. 

@@ -1,6 +1,7 @@
 ---
 title:  "Visual Studio-less WDM Windows Kernel Driver Programming: cmake and FindWDK"
 categories: Windows
+classes: wide
 ---
 
 Visual Studio can be bloat, cmake and FindWDK allows for easy WDM driver compilation on the commandline

@@ -1,6 +1,7 @@
 ---
 title:  "CVE-2022-48127: Finding an Open Redirect and Some General Router Tomfoolery, rooting an ASUS Router via UART"
 categories: iot
+classes: wide
 ---
 
 Had a ASUS RT-AC1200G+ router that was doing nothing, had been watching [Flashback team](https://www.youtube.com/@FlashbackTeam/videos) videos on youtube and was feeling a bit bored. Popped the router open and saw 4 pins in a row. "Thats UART", wondered what architecture and webserver the system was running so I poked at it one weekend.

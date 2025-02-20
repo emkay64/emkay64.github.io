@@ -1,6 +1,7 @@
 ---
 title:  "CVE-2024-31127: Zscaler Client Connector 4.1.500.3 NSXPC Local Privilege escalation"
 categories: macOS
+classes: wide
 ---
 
 It was possible to achieve local privilege escalation (LPE) through the following high level abuse steps:

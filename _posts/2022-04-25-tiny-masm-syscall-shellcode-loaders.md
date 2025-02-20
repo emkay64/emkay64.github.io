@@ -1,6 +1,7 @@
 ---
 title:  "Creating tiny 3.50 KB windows shellcode loaders, Its not about the size but how you use it: syscalled"
 categories: Windows
+classes: wide
 ---
 
 Writing very very simple and tiny shellcode loaders using MASM assembly for the fun of it.  

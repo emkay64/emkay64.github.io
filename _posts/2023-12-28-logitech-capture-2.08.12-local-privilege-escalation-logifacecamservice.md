@@ -1,6 +1,7 @@
 ---
 title:  "NO-CVE 0day: Logitech Logi Capture 2.08.12 macOS Local Privilege Escalation (LogiFacecamService)"
 categories: macOS
+classes: wide
 ---
 
 It was possible to achieve local privilege escalation (LPE) through the following high level abuse steps:
