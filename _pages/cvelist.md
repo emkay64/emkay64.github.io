@@ -33,7 +33,7 @@ classes: wide
 | Dupe | macOS Application | Zscaler | Zscaler Client Connector Uninstaller Local Privilege Escalation |
 | [CVE-2024-55904](https://www.cve.org/CVERecord?id=CVE-2024-55904) | Java Web Application | IBM | [IBM DevOps Deploy / IBM UrbanCode Deploy (UCD) is susceptible to command injection](https://www.ibm.com/support/pages/node/7182841) |
 | [CVE-2024-54176](https://www.cve.org/CVERecord?id=CVE-2024-54176) | Java Web Application | IBM | [IBM DevOps Deploy / IBM UrbanCode Deploy (UCD) is susceptible to a sensitive information disclosure](https://www.ibm.com/support/pages/node/7182840) |
-| TBD | TBD | IBM | IBM Product |
+| [CVE-2024-56469](https://www.cve.org/CVERecord?id=CVE-2024-56469) | Java Web Application | IBM | [IBM DevOps Deploy / IBM UrbanCode Deploy (UCD) is susceptible to unauthroized access to other services](https://www.ibm.com/support/pages/node/7229031) |
 | [CVE-2024-11468](https://www.cve.org/CVERecord?id=CVE-2024-11468) | macOS | VMware | [Horizon Client for macOS Installer Local Privilege Escalation](https://static.omnissa.com/sites/default/files/OMSA-2024-0002.pdf) |
 | TBD | TBD | Palo Alto | Palo Alto Product |
 | TBD | TBD | Admin By Request | Admin By Request Product |
