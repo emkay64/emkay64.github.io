@@ -39,5 +39,5 @@ classes: wide
 | TBD | TBD | Admin By Request | Authentication Bypass |
 | TBD | TBD | OpenVPN | Local Privilege Escalation |
 | TBD | TBD | OpenVPN | Local Privilege Escalation |
-| TBD | Windows Server | Palo Alto | Unauthenticated Remote Code Execution |
-| TBD | Windows Server | Palo Alto | Unauthenticated Remote Code Execution |
+| TBD | Windows Server | Intel | Unauthenticated Remote Code Execution |
+| TBD | Windows Server | Intel | Unauthenticated Remote Code Execution |
