@@ -1,5 +1,5 @@
 ---
-title:  "Creating tiny 3.50 KB windows shellcode loaders, Its not about the size but how you use it: syscalled"
+title:  "Creating tiny 3.50 KB windows shellcode loaders, It's not about the size but how you use it: syscalled"
 categories: Windows
 classes: wide
 ---
@@ -192,7 +192,7 @@ void* my_memmove(void* dest, const void* src, unsigned int n)
 }
 {% endhighlight %}
 
-Now due to verbosity of the build, we can see what happens during the build. I dont really understand why some compiler flags clash but thats the MSVC compiler for you.
+Now due to verbosity of the build, we can see what happens during the build. I don't really understand why some compiler flags clash but that's the MSVC compiler for you.
 
 ```
 Rebuild started...
@@ -282,10 +282,10 @@ Rebuild started...
 ========== Rebuild All: 1 succeeded, 0 failed, 0 skipped ==========
 ``` 
 
-Now you will have a tiny binary which doesnt depend on win32 or crt. 
+Now you will have a tiny binary which doesn't depend on win32 or crt. 
 ```
 DRIVE:\Project\Projects\Syscall\Syscall>ls -lah DRIVE:\Project\Projects\Syscall\Syscall\x64\Release\Syscall.exe
 -rwxr-xr-x 1 p4yl0_q36yakq 197610 4.0K Month 99 99:99 'DRIVE:\Project\Syscall\x64\Release\Syscall.exe'
 ```
 
-Its not about the size but how you use it.
+It's not about the size but how you use it.

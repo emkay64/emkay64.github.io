@@ -4,7 +4,7 @@ categories: iot
 classes: wide
 ---
 
-Had a ASUS RT-AC1200G+ router that was doing nothing, had been watching [Flashback team](https://www.youtube.com/@FlashbackTeam/videos) videos on youtube and was feeling a bit bored. Popped the router open and saw 4 pins in a row. "Thats UART", wondered what architecture and webserver the system was running so I poked at it one weekend.
+Had an ASUS RT-AC1200G+ router that was doing nothing, had been watching [Flashback team](https://www.youtube.com/@FlashbackTeam/videos) videos on youtube and was feeling a bit bored. Popped the router open and saw 4 pins in a row. "That's UART", wondered what architecture and webserver the system was running so I poked at it one weekend.
 
 
 ## Detecting 3.3v, Ground, TX and RX pins.
@@ -27,7 +27,7 @@ Had a ASUS RT-AC1200G+ router that was doing nothing, had been watching [Flashba
 
 Once all 4 have been found, UART likely has been identified.
 
-TX(transmit) needs to transmit to RX(recieve) and ground needs to be grounded on both devices
+TX(transmit) needs to transmit to RX(receive) and ground needs to be grounded on both devices
 ```
 +----------+         +----------+
 |   UART   |         |   UART   |
@@ -43,7 +43,7 @@ TX(transmit) needs to transmit to RX(recieve) and ground needs to be grounded on
 
 
 ## Setup of raspberry pi as serial (UART) console
-Boredum leads to curiosity, curiosity leads to experimentation and experimentation leads to discovery. With no UART to USB dongle I remembered that the Raspberry Pi has GPIO pins. Quick gooling shows 2 pins of interest, 
+Boredom leads to curiosity, curiosity leads to experimentation and experimentation leads to discovery. With no UART to USB dongle I remembered that the Raspberry Pi has GPIO pins. Quick googling shows 2 pins of interest, 
     
 - GPIO14 = TXD
 - GPIO15 = RXD
@@ -90,8 +90,8 @@ Upon SSHing into the rpi, using the following command had no output.
 ```
 p4@raspberrypi:~ $ picocom -b 115200 /dev/AMA0
 ```
-Thought that was a bit Weird as something should output even if I have the BAUD rate wrong...
-The next morning I asked some people and turns out on new the newer raspberry Pis that serial needs to be enabled
+Thought that was a bit weird as something should output even if I have the BAUD rate wrong...
+The next morning I asked some people and turns out on the newer Raspberry Pis that serial needs to be enabled
 ```
 sudo raspi-config
 ```
@@ -115,7 +115,7 @@ Linux 2.6.36.4 с использованием BusyBox 1.17.4.
 """
 ```
 
-Huh, interesting okay, at least we know its not protected with a device specific generated password or something hard to bruteforce
+Huh, interesting okay, at least we know it's not protected with a device specific generated password or something hard to bruteforce
 ```
 """
 To access the command line, the same login-password pair is used as for accessing the router's web interface.
@@ -187,7 +187,7 @@ admin@RT-AC1200G+:/tmp/home/root# find / -name *scp*
 /usr/lib/xtables/libxt_dscp.so
 ```
 
-Grabbed a full fledged busybox and dropped to disk so I can have QoL improvements
+Grabbed a full-fledged busybox and dropped to disk so I can have QoL improvements
 ```
 p4@raspberrypi:~ $ wget https://busybox.net/downloads/binaries/1.21.1/busybox-armv7l
 admin@RT-AC1200G+:/tmp/home/root# scp p4@192.168.2.154:/home/p4/busybox-armv7l /tmp/busybox-armv7l
@@ -254,7 +254,7 @@ Currently defined functions:
         wc, wget, which, who, whoami, whois, xargs, xz, xzcat, yes, zcat, zcip
 ```
 
-WPS pin can be dumped with ease using nvram storage (nvram is used alot for random storage)
+WPS pin can be dumped with ease using nvram storage (nvram is used a lot for random storage)
 ```
 admin@RT-AC1200G+:/tmp# nvram show | grep -E "secret_code|wps_device_pin"
 size: 40914 bytes (24622 left)
@@ -305,7 +305,7 @@ udp        0      0 127.0.0.1:61689         0.0.0.0:*                           
 ```
 (nice command i saw in a flashback team video[5])
 
-With 25 ports listening externally, thats alot of attack surface area to cover.
+With 25 ports listening externally, that's a lot of attack surface area to cover.
 - u2ec = some USB related binary
 - lpd = Line Printer Daemon binary
 - infosrv = some references to some AiCloud? S50aicloud
@@ -313,7 +313,7 @@ With 25 ports listening externally, thats alot of attack surface area to cover.
 - miniupnpd = https://github.com/miniupnp/miniupnp ?
 - wanduck = https://github.com/RMerl/asuswrt-merlin/blob/master/release/src/router/rc/wanduck.c ? main webserver / logic binary ?
 
-All these binaries have old Buildroots, interesting and likely vulns to be found. 
+All these binaries have old Buildroots — interesting, and likely vulns to be found. 
 ```
 GCC: (GNU) 3.3.2 20031005 (Debian prerelease)
 GCC: (Buildroot 2012.02) 4.5.3
@@ -322,7 +322,7 @@ GCC: (Buildroot 2012.02) 4.5.3
 
 ## Dumb Open redirect CVE-2022-48127 
 
-While reviewing the web source code i noticed a very dumb open redirect issue on password reset. 
+While reviewing the web source code I noticed a very dumb open redirect issue on password reset. 
 ```
 D:\www>C:\TOOLING\rg.exe --hidden "nextPage"
 state.js
@@ -358,7 +358,7 @@ function submitForm()
 }
 ```
 
-the asp.net results in:
+The ASP.NET results in:
 ```js
 var nextPage = decodeURIComponent('https://google.com');
 location.href = (nextPage != "") ? nextPage : "<% rel_index_page(); %>";

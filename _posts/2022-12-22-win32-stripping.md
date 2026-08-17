@@ -20,7 +20,7 @@ Project Properties Page -> Configuration Properties -> Linker -> All Options -> 
 
 Include PHNT Headers into header unit dependencies
 ```
-Project Properties Page -> Configuration Properties -> C/C++ -> All Options -> Additonal Include Directories -> $(ProjectDir)phnt;%(AdditionalHeaderUnitDependencies) 
+Project Properties Page -> Configuration Properties -> C/C++ -> All Options -> Additional Include Directories -> $(ProjectDir)phnt;%(AdditionalHeaderUnitDependencies) 
 ```
 
 Define includes 

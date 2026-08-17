@@ -41,9 +41,9 @@ mklink /J C:\Users\zscaler_live\AppData\Local\Zscaler C:\Zscaler
 
 
 ## Remedial Action
-Zscaler can further harden their NTFS directory creation/deletion/modification implementation by ensuring that directories which are required for the ZCC's operations posses the intended New Technology File System (NTFS) attributes and not otherwise.
+Zscaler can further harden their NTFS directory creation/deletion/modification implementation by ensuring that directories which are required for the ZCC's operations possess the intended New Technology File System (NTFS) attributes and not otherwise.
 
-Junction points can be programatically identified by querying the attributes of the target for the following attributes:
+Junction points can be programmatically identified by querying the attributes of the target for the following attributes:
 - `FILE_ATTRIBUTE_REPARSE_POINT`, `FILE_ATTRIBUTE_HIDDEN`, and `FILE_ATTRIBUTE_SYSTEM` file attributes set.
 - They also have their access control lists (ACLs) set to deny read access to everyone.
 

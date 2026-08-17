@@ -9,13 +9,13 @@ It was possible to achieve local privilege escalation (LPE) through the followin
 - A bypass of the hardened runtime and inheritance of Zscaler's signing team ID (`PCBCQZJ7S7`) through one of the following vectors:
     - A dylib load through `DYLD_INSERT_LIBRARIES` environment variable preloading 
     - A `@loader_path` search order hijack 
-- Communication with the `ZscalerService` LaunchDaemon hosting a NSXPC interface (`com.zscaler.service-tray-communication`) which exposed functionality to execute arbritrary script content as root.
+- Communication with the `ZscalerService` LaunchDaemon hosting a NSXPC interface (`com.zscaler.service-tray-communication`) which exposed functionality to execute arbitrary script content as root.
 
 
 
 ## Anatomy of the ZscalerService LaunchDaemon
 
-The `shouldAcceptNewConnection` listener routine within the `ZscalerService` LaunchDaemon checks the incoming connection's `auditToken` whether the `TeamIdentifier` is (`PCBCQZJ7S7`) using the `PlatformUtils::validateTeamSignature` function , if the process doesn't have an `auditToken` it checks the pid for the `TeamIdentifier` (`PCBCQZJ7S7`) using the `PlatformUtils::validateTeamSignature` function. 
+The `shouldAcceptNewConnection` listener routine within the `ZscalerService` LaunchDaemon checks the incoming connection's `auditToken` for whether the `TeamIdentifier` is (`PCBCQZJ7S7`) using the `PlatformUtils::validateTeamSignature` function; if the process doesn't have an `auditToken` it checks the pid for the `TeamIdentifier` (`PCBCQZJ7S7`) using the `PlatformUtils::validateTeamSignature` function. 
 
 Once the `TeamIdentifier` has been verified to be Zscaler's `TeamIdentifier` of `PCBCQZJ7S7`, it then checks the `BundleIdentifier` and depending on the `BundleIdentifier`'s value it provides different protocol methods. 
 
@@ -31,7 +31,7 @@ It then checks whether the Mach service name is `com.zscaler.service-tray-commun
 
 
 ## Hardened runtime bypass
-The `/Applications/Zscaler/Zscaler.app/Contents/PlugIns/ZscalerTunnel` Mach-O executable had the `com.apple.security.cs.allow-dyld-environment-variables` and `com.apple.security.cs.disable-library-validation` enitlements which facilitated a trivial dylib injection through the `DYLD_INSERT_LIBRARIES` environment variable.
+The `/Applications/Zscaler/Zscaler.app/Contents/PlugIns/ZscalerTunnel` Mach-O executable had the `com.apple.security.cs.allow-dyld-environment-variables` and `com.apple.security.cs.disable-library-validation` entitlements which facilitated a trivial dylib injection through the `DYLD_INSERT_LIBRARIES` environment variable.
 ```xml
 07:41:36-testmac@mpro:~/Desktop/installRevertZCC/clean_exploit$ codesign -dv --entitlements :- /Applications/Zscaler/Zscaler.app/Contents/PlugIns/ZscalerTunnel
 Executable=/Applications/Zscaler/Zscaler.app/Contents/PlugIns/ZscalerTunnel

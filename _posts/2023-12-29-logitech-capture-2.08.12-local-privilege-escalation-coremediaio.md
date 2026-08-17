@@ -101,7 +101,7 @@ drwxr-xr-x@ 6 testmac  staff   192B 24 Oct  2021 ..
 
 ### Prepare the malicious Mach-O
 
-The following c code can be compiled as the malicious dylib. The result of the `date`, `whoami` and `id` commands are redirected into the `/tmp/com.Logitech.Assistant.Service.pwn` file. The contents can be arbritrary, e.g. changing file permissions on protected files, installing persistence or providing a root terminal.
+The following c code can be compiled as the malicious dylib. The result of the `date`, `whoami` and `id` commands are redirected into the `/tmp/com.Logitech.Assistant.Service.pwn` file. The contents can be arbitrary, e.g. changing file permissions on protected files, installing persistence or providing a root terminal.
 ```c
 /* gcc Logitech_Assistant_LPE.c -o Logitech_Assistant_LPE */
 #include <stdlib.h>

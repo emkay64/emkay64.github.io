@@ -4,15 +4,15 @@ categories: Windows
 classes: wide
 ---
 
-This was research that was done for a University BSc Cyber Security and Digital Forensics dissertation, this project was chosen as a challenge as my Windows OS knowledge at the time was weak. Didn't know more than how to write a hello world in c. Its very crudely copy pasted from my paper and with the knowledge obtained since could be improved on. Its interesting to see how things change with time. 
+This was research that was done for a University BSc Cyber Security and Digital Forensics dissertation, this project was chosen as a challenge as my Windows OS knowledge at the time was weak. Didn't know more than how to write a hello world in C. It's very crudely copy pasted from my paper and with the knowledge obtained since could be improved on. It's interesting to see how things change with time. 
 
 
 ## Scenario
-Win32 & CRT-less binary intended to early load by e.g. ELAM/KMDF driver using KAPC injection to force load. inspired by Dennis Babkin(InjectAll), wbenny(InjDrv/DetoursNT), ccob(Building And Breaking an edr) and the blogs read along the way.
+Win32 & CRT-less binary intended to early load by e.g. ELAM/KMDF driver using KAPC injection to force load. Inspired by Dennis Babkin (InjectAll), wbenny (InjDrv/DetoursNT), ccob (Building and Breaking an EDR) and the blogs read along the way.
 
 
 ## RIP/return address & __ReturnAddress() intrinsic
-To obtain the target address to search for, the MSVC compiler intrinsic __ReturnAddress() can be used within each hooking function. Take the example below, the entry function calls the returnval function which utilizes this intrinsic and prints the address which a RET instruction will return to. In this case pointing back within the main function, The instruction after the function call to be specific. This logic will be valuable in a later section.
+To obtain the target address to search for, the MSVC compiler intrinsic __ReturnAddress() can be used within each hooking function. Take the example below, the entry function calls the returnval function which utilizes this intrinsic and prints the address which a RET instruction will return to. In this case pointing back within the main function, specifically the instruction after the function call. This logic will be valuable in a later section.
 
 {% highlight c %}
 #include <stdio.h>
@@ -38,7 +38,7 @@ Hooking the Win32 API and the NTAPI with Microsoft Detours is trivial. Hooking W
 
 This can be carried out in a similar way to the LoadLibrary + GetProcAddress method used to resolve functions dynamically which can be utilized from Win32 to obtain function pointers; however this needs to use Win32.
 
-The method that was discovered was using the Ldr functions exported by NTDLL.DLL to copy the functionality of LoadLibrary + GetProcAddress. LdrLoadDll and LdrGetProcedureAddress were utilized with the function prototypes provided by process hackers NT headers.
+The method that was discovered was using the Ldr functions exported by NTDLL.DLL to copy the functionality of LoadLibrary + GetProcAddress. LdrLoadDll and LdrGetProcedureAddress were utilized with the function prototypes provided by process hacker's NT headers.
 
 {% highlight c %}
 RtlInitUnicodeString(&ModuleNameString_U, L"kernelbase");
@@ -195,7 +195,7 @@ runfunc = RtlLookupFunctionEntry(ullRetAddr, &imgbase, &HistTable);
 
 Now the function BeginAddress can be used to search the PE for an Exported function name. The PE structure features a Directory called the EXPORT DIRECTORY (wireless90 2021) which contains information about the exported functions. For example, CFF Explorer (NTCore 2018) can be used to view the PE structure in depth. The Export directory is the first entry in the Data Directory section at index [0]. Holding an ordinal if set, the function RVA, the name Ordinal, the Name RVA and the Name.
 
-The function name can be obtained by iterating over the entries in the Export Directory until the address matches. This is carried out via standard PE parsing using the Known and publicly documented PE file structure and structures available. It’s questionable whether creating a sorted vector of these structures to save having to parse the PE headers each time, however this is room for future experimentation. The snippet below is a cut down hybrid of a couple of scripts, sektor7 and arbiter34.
+The function name can be obtained by iterating over the entries in the Export Directory until the address matches. This is carried out via standard PE parsing using the Known and publicly documented PE file structure and structures available. It’s questionable whether creating a sorted vector of these structures to save having to parse the PE headers each time would be worthwhile; however, this is room for future experimentation. The snippet below is a cut down hybrid of a couple of scripts, sektor7 and arbiter34.
 {% highlight c %}
 [...SNIP...]
 if ((PIMAGE_DOS_HEADER)imgbase)->e_magic == IMAGE_DOS_SIGNATURE)
@@ -224,11 +224,11 @@ if ((PIMAGE_DOS_HEADER)imgbase)->e_magic == IMAGE_DOS_SIGNATURE)
 [...SNIP...]
 {% endhighlight %}
 
-NOTE: One limitation of this approach is the function to be searched for needs to be exported by the DLL being searched and if it’s not it’s likely a private function or pointing back into the host executable.
+NOTE: One limitation of this approach is the function to be searched for needs to be exported by the DLL being searched and if it’s not, it’s likely a private function or pointing back into the host executable.
 
 
 ## Putting the pieces together
-The complete functionality of a Call to a hooked function can be described below. After The DLL has been injected into malproc64.exe and Hooks have been applied.
+The complete functionality of a call to a hooked function can be described below. After the DLL has been injected into malproc64.exe and hooks have been applied.
 
 ```
 1. VirtualAlloc gets called by malproc64.exe
@@ -255,7 +255,7 @@ The complete functionality of a Call to a hooked function can be described below
 ```
 
 
-To discuss and dissect results the sample source below, malproc64.c, calls VirtualAlloc, VirtualAllocEx, VirtualAllocExNuma, RtlMoveMemory, VirtualProtect, CreateThread. All the Win32 API’s and NTAPI counterparts in use are hooked apart from RtlMoveMemory. The DLL is force-loaded via LoadLibrary to simulate the injection at process creation.
+To discuss and dissect results the sample source below, malproc64.c, calls VirtualAlloc, VirtualAllocEx, VirtualAllocExNuma, RtlMoveMemory, VirtualProtect, CreateThread. All the Win32 APIs and NTAPI counterparts in use are hooked apart from RtlMoveMemory. The DLL is force-loaded via LoadLibrary to simulate the injection at process creation.
 
 {% highlight c %}
 #include <Windows.h>
@@ -303,7 +303,7 @@ The log file created contains a line for each hook hit in the format of:
 (RETADDRESS)
 ```
 
-Each api call trace is split into groups of loglines with descriptions in the form of inline c comments.
+Each API call trace is split into groups of loglines with descriptions in the form of inline C comments.
 
 ```
 /** Normal VirtualAlloc call (VirtualAlloc->[Zw/Nt]AllocateVirtualMemory) **/
@@ -334,7 +334,7 @@ HOOKHIT: NTAPI:HookNtAllocateVirtualMemory,(caller module: NOT_OG:KERNELBASE.dll
 (count : 1),(func : 0x00007FFF6503524D)
 
 ```
-Its not nice on the eyes and was the source for some confusion, but thats the learning process. Make mistakes while experiementing and researching -> learn from it -> apply in the real world
+It's not nice on the eyes and was the source for some confusion, but that's the learning process. Make mistakes while experimenting and researching -> learn from it -> apply in the real world
 
 
 
@@ -412,29 +412,29 @@ void ThisIsNotAnEntryPoint(void)
 }
 {% endhighlight %}
 
-As this PE is not importing functions from ntdll which will be hooked by the introspection DLL within the process, the PE using these syscall stubs will go unnoticed however a log file for the process will be created.
+As this PE is not importing functions from ntdll which will be hooked by the introspection DLL within the process, the PE using these syscall stubs will go unnoticed; however, a log file for the process will be created.
 
 A breakpoint is put on the final call to CreateProcessInternalW in order to facilitate stepping through each stage of the introspection during execution shows the processes that go on behind the scenes.
 	1. Introspection DLL gets force loaded into the process
 	2. The DLL PROCESS ATTACH reason for call is passed to the DLL
 	3. The log file based on PID and executable name is created.
 	4. A range of Win32 hooks are applied successfully
-	5. The syscall64d.exe binary carries out it’s thread based shellcode execution
+	5. The syscall64d.exe binary carries out its thread based shellcode execution
 	6. The breakpoint set on CreateProcessInternalW which is called by the msfvenom shellcode is hit
 
 
 ## Critical Review
-At the beginning of the project the researcher had the aim of developing a Kernel Driver which can inject a custom DLL into processes and act as a provider and protector from malicious API usage patterns. This was inspired by an interest in how enterprise endpoint detection implement their user mode detection capabilities.
+At the beginning of the project the researcher had the aim of developing a Kernel Driver which can inject a custom DLL into processes and act as a provider and protector from malicious API usage patterns. This was inspired by an interest in how enterprise endpoint detection implements their user mode detection capabilities.
 
-After 30 hours of KMDF driver programming based off of Dennis Babkin’s InjectAll blog (Babkin D. 2021b) and youtube series (Babkin D. 2021a), the researcher decided to shift focus from the driver to the DLL due to the complexity and number of tasks that would need to be completed in order to achieve the original aim in it’s entirety.
+After 30 hours of KMDF driver programming based off of Dennis Babkin’s InjectAll blog (Babkin D. 2021b) and YouTube series (Babkin D. 2021a), the researcher decided to shift focus from the driver to the DLL due to the complexity and number of tasks that would need to be completed in order to achieve the original aim in its entirety.
 
-After developing the core proof of concepts the researcher came to the conclusion that developing detection capabilities further than access protection detection and buffer scanning was not feasible for this project’s time constraints put into place. With the weighting towards
+After developing the core proof of concepts the researcher came to the conclusion that developing detection capabilities further than access protection detection and buffer scanning was not feasible within this project’s time constraints.
 
 By the end of the project the DLL was successfully developed alongside a range of tools and demo pieces, this allowed the researcher to dive deep and learn a good deal of Windows internals fundamentals.
 
 
 ## Revisions
-The c code that was written is not safe by any means, warning messages and memory safety were not taken into account during the lifecycle of programming due to inexperience. A couple of rounds of Refactoring and code review will enable the application to be safer and made more efficient in terms of operation and codebase size. Using Nt NTAPI functions for file creation and management was difficult due to the lack of official documentation and inexperience but it was made to work through attaching a debugger and trial and error. 
+The C code that was written is not safe by any means, warning messages and memory safety were not taken into account during the lifecycle of programming due to inexperience. A couple of rounds of Refactoring and code review will enable the application to be safer and made more efficient in terms of operation and codebase size. Using Nt NTAPI functions for file creation and management was difficult due to the lack of official documentation and inexperience but it was made to work through attaching a debugger and trial and error. 
 
 {% highlight c %}
 [...SNIP...]

@@ -4,7 +4,7 @@ categories: Windows
 classes: wide
 ---
 
-Visual Studio can be bloat, cmake and FindWDK allows for easy WDM driver compilation on the commandline
+Visual Studio can be bloated; cmake and FindWDK allow for easy WDM driver compilation on the command line
 
 
 

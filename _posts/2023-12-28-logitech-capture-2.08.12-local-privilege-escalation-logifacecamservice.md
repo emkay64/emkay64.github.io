@@ -6,7 +6,7 @@ classes: wide
 
 It was possible to achieve local privilege escalation (LPE) through the following high level abuse steps:
 - Identification of weak POSIX directory and file permissions for an XPC Mach Service binary
-- Replacement of the `/Library/Application Support/LogiFacecam.bundle/Contents/MacOS/LogiFacecamService` binary a malicious Mach-O
+- Replacement of the `/Library/Application Support/LogiFacecam.bundle/Contents/MacOS/LogiFacecamService` binary with a malicious Mach-O
 - A reboot of the target macOS device
 
 
@@ -80,7 +80,7 @@ drwxr-xr-x@ 8 testmac  staff   256B 24 Oct  2021 ..
 
 ### Prepare the malicious Mach-O
 
-The following c code can be compiled as the malicious dylib. The result of the `date`, `whoami` and `id` commands are redirected into the `/tmp/com.Logitech.LogiFacecam.Service.pwn` file. The contents can be arbritrary, e.g. changing file permissions on protected files, installing persistence or providing a root terminal.
+The following c code can be compiled as the malicious dylib. The result of the `date`, `whoami` and `id` commands are redirected into the `/tmp/com.Logitech.LogiFacecam.Service.pwn` file. The contents can be arbitrary, e.g. changing file permissions on protected files, installing persistence or providing a root terminal.
 ```c
 /* gcc Logitech_LogiFacecam_LPE.c -o Logitech_LogiFacecam_LPE */
 #include <stdlib.h>
