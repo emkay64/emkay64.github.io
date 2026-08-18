@@ -39,5 +39,5 @@ classes: wide
 | TBD | TBD | Admin By Request | Authentication Bypass |
 | TBD | TBD | OpenVPN | Local Privilege Escalation |
 | TBD | TBD | OpenVPN | Local Privilege Escalation |
-| TBD | Windows Server | Intel | Unauthenticated Remote Code Execution |
+| [CVE-2025-35990](https://www.cve.org/CVERecord?id=CVE-2025-35990) | Windows Server | Intel | [Endpoint Management Assistant Unauthenticated Remote Code Execution](https://labs.reversec.com/advisories/2026/06/intel-endpoint-management-assistant-unauthenticated-remote-code-execution) |
 | TBD | Windows Server | Intel | Unauthenticated Remote Code Execution |
