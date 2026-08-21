@@ -35,10 +35,10 @@ classes: wide
 | [CVE-2024-54176](https://www.cve.org/CVERecord?id=CVE-2024-54176) | Java Web Application | IBM | [IBM DevOps Deploy / IBM UrbanCode Deploy (UCD) is susceptible to a sensitive information disclosure](https://www.ibm.com/support/pages/node/7182840) |
 | [CVE-2024-56469](https://www.cve.org/CVERecord?id=CVE-2024-56469) | Java Web Application | IBM | [IBM DevOps Deploy / IBM UrbanCode Deploy (UCD) is susceptible to unauthorized access to other services](https://www.ibm.com/support/pages/node/7229031) |
 | [CVE-2024-11468](https://www.cve.org/CVERecord?id=CVE-2024-11468) | macOS | VMware | [Horizon Client for macOS Installer Local Privilege Escalation](https://static.omnissa.com/sites/default/files/OMSA-2024-0002.pdf) |
-| Unreported | TBD | Palo Alto | Information Disclosure |
-| Unreported | TBD | Admin By Request | Authentication Bypass |
-| Unreported | TBD | OpenVPN | Local Privilege Escalation |
-| Unreported | TBD | OpenVPN | Local Privilege Escalation |
+| Unreported | TBC | Palo Alto | Information Disclosure |
+| Unreported | TBC | Admin By Request | Authentication Bypass |
+| Unreported | TBC | OpenVPN | Local Privilege Escalation |
+| Unreported | TBC | OpenVPN | Local Privilege Escalation |
 | [CVE-2025-35990](https://www.cve.org/CVERecord?id=CVE-2025-35990) | Windows Server | Intel | [Endpoint Management Assistant Unauthenticated Remote Code Execution](https://labs.reversec.com/advisories/2026/06/intel-endpoint-management-assistant-unauthenticated-remote-code-execution) |
-| Unreported | TBD | Logseq | TBD |
-| Unreported | TBD | RStudio | TBD |
+| Unreported | TBC | Logseq | TBC |
+| Unreported | TBC | RStudio | TBC |
