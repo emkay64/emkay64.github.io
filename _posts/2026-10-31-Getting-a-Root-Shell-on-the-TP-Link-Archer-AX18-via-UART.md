@@ -1,10 +1,8 @@
 ---
-title:  "Getting a Root Shell on the TP-Link Archer AX18 via UART"
+title: "Getting a Root Shell on the TP-Link Archer AX18 via UART"
 categories: iot
 classes: wide
 ---
-
-## The Device
 
 The TP-Link Archer AX18 V1.0 (sold as the Archer AX12 in Europe) is a budget WiFi 6 router built around a Realtek RTL8197F-VG SoC. It has 128MB of RAM, 16MB of SPI NOR flash (Winbond W25Q128JVSQ), and runs Linux 4.4.176 on a MIPS 24Kc core.
 
